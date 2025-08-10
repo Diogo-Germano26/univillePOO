@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class PersonDAO extends BaseDAO{
+public class PessoaDAO extends BaseDAO{
     public void deleteID(long id){
         String sql="delete from Pessoa where id=?";
         try(Connection con = con(); PreparedStatement pre = con().prepareStatement(sql)){
@@ -17,7 +17,7 @@ public class PersonDAO extends BaseDAO{
         }
     }
 
-    public void insert(Person p){
+    public void insert(Pessoa p){
         String sql= "INSERT INTO Pessoaa" +
                 "(Nome, Sobrenome, dataNascimento, Ativo, CPF, Peso, Altura) VALUES (?,?,?,?,?,?,?)";;
         try(Connection con = con(); PreparedStatement pre = con().prepareStatement(sql)){
@@ -28,7 +28,7 @@ public class PersonDAO extends BaseDAO{
             pre.setString(5, p.getCpf());
             pre.setString(6, p.getPeso());
             pre.setString(7, p.getAltura());
-                pre.execute();
+            pre.execute();
         }catch (SQLException e){
             System.out.println("erro ao deletar pello id"+p.getNome());
             System.out.println("erro"+e.getMessage());
