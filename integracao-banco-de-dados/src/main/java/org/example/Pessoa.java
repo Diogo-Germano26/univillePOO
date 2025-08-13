@@ -23,6 +23,10 @@ public class Pessoa {
         this.dataNascimento = dataNascimento;
     }
 
+    public Pessoa() {
+
+    }
+
     public long getId() {
         return id;
     }
@@ -55,7 +59,7 @@ public class Pessoa {
         this.sobrenome = sobrenome;
     }
 
-    public String getAltura() {
+    public double getAltura() {
         return altura;
     }
 
@@ -63,7 +67,7 @@ public class Pessoa {
         this.altura = altura;
     }
 
-    public String getPeso() {
+    public double getPeso() {
         return peso;
     }
 
@@ -71,14 +75,14 @@ public class Pessoa {
         this.peso = peso;
     }
 
-    public String isAtivo() {
+    public boolean isAtivo() {
         return ativo;
     }
 
     public void setAtivo() {
     }
 
-    public String getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 

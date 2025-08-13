@@ -2,6 +2,7 @@ package org.example;
 
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -23,14 +24,14 @@ public class PessoaDAO extends BaseDAO{
         try(Connection con = con(); PreparedStatement pre = con().prepareStatement(sql)){
             pre.setString(1,p.getNome());
             pre.setString(2, p.getSobrenome());
-            pre.setString(3, p.getDataNascimento());
-            pre.setString(4, p.isAtivo());
+            pre.setDate(3, Date.valueOf(p.getDataNascimento()));
+            pre.setBoolean(4, p.isAtivo());
             pre.setString(5, p.getCpf());
-            pre.setString(6, p.getPeso());
-            pre.setString(7, p.getAltura());
+            pre.setDouble(6, p.getPeso());
+            pre.setDouble(7, p.getAltura());
             pre.execute();
         }catch (SQLException e){
-            System.out.println("erro ao deletar pello id"+p.getNome());
+            System.out.println("erro ao deletar pelo id"+p.getNome());
             System.out.println("erro"+e.getMessage());
         }
     }
