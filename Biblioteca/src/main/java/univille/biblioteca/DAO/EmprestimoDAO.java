@@ -1,5 +1,6 @@
 package univille.biblioteca.DAO;
 
+import univille.biblioteca.entidade.Emprestimo;
 import univille.biblioteca.entidade.UsuarioComAtraso;
 
 import java.awt.*;
@@ -10,7 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EmprestimoDAO extends BaseDAO {
-
         public long qntLivrosEmprParaUsu(long idUsuario){
             String sql= "SELECT count(*) from emprestimo where id_usuario=?";
             try (Connection conn = con();
@@ -40,10 +40,10 @@ public class EmprestimoDAO extends BaseDAO {
                 PreparedStatement pds = conn.prepareStatement(sql);
                 ResultSet result = pds.executeQuery()){
                 while(result.next()){
+                    Emprestimo e = new Emprestimo();
                     UsuarioComAtraso usuarioAtraso = new UsuarioComAtraso();
-                    usuarioAtraso.setId(result.getLong("id_usuario"));
+                    usuarioAtraso.setId_usuario(result.getLong("id_usuario"));
                     usuarioAtraso.setNome(result.getString("Nome"));
-                    usuarioAtraso.setData_prevista_devolucao(result.getDate("data_prevista_devolucao"));
                     listaAtraso.add(usuarioAtraso);
                 }
             }catch (SQLException E){
@@ -53,8 +53,13 @@ public class EmprestimoDAO extends BaseDAO {
         }
 
 
+    public Emprestimo getEmprestimo() {
+        return emprestimo;
+    }
 
-
+    public void setEmprestimo(Emprestimo emprestimo) {
+        this.emprestimo = emprestimo;
+    }
 }
 
 

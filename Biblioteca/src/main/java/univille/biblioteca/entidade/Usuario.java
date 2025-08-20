@@ -7,7 +7,7 @@ public class Usuario {
 
     public Usuario(){}
 
-    public Usuario(long id_usuario, String Nome, String email){
+    public Usuario(long id_usuario, String nome, String email){
         this.id_usuario = id_usuario;
         this.nome= nome;
         this.email = email;
@@ -25,11 +25,12 @@ public class Usuario {
     public void setId_usuario(long id_usuario){
         this.id_usuario=id_usuario;
     }
-    public void setNome(String Nome){
+    public void setNome(String nome){
         this.nome=nome;
     }
     public void setEmail(String email){
         this.email=email;
+
     }
 
 

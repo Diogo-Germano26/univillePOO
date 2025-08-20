@@ -3,9 +3,11 @@ package univille.biblioteca.entidade;
 public class UsuarioComAtraso extends Usuario{
     private long quantLivrosAtrasados;
 
+
     public UsuarioComAtraso(){
 
     }
+
 
     public UsuarioComAtraso(long quantLivrosAtrasados) {
         this.quantLivrosAtrasados = quantLivrosAtrasados;
