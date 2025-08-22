@@ -16,6 +16,7 @@ public class EmprestimoDAO extends BaseDAO {
             try (Connection conn = con();
                  PreparedStatement pds = conn.prepareStatement(sql)){
                 pds.setLong(1,1);
+                pds.set
                 ResultSet result = pds.executeQuery();
 
                 if(result.next()){

@@ -1,4 +1,6 @@
 package univille.gestaoImobiliaria.DAO;
 
-public class ClienteDAO {
+public class ClienteDAO extends BaseDAO{
+
+    public void
 }

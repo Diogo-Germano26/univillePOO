@@ -1,4 +1,4 @@
 package univille.gestaoImobiliaria.DAO;
 
-public class ImovelDAO {
+public class ImovelDAO extends BaseDAO{
 }
