@@ -6,17 +6,19 @@ public class CadastroImovel {
     private String endereco;
     private double tamanho;
     private String classificacao;
+    private boolean contratoAlugelAtivo;
 
 
     public CadastroImovel() {
     }
 
-    public CadastroImovel(long idImovel, String tipoImovel, String endereco, double tamanho, String classificacao) {
+    public CadastroImovel(long idImovel, String tipoImovel, String endereco, double tamanho, String classificacao, boolean contratoAlugelAtivo) {
         this.idImovel = idImovel;
         this.tipoImovel = tipoImovel;
         this.endereco = endereco;
         this.tamanho = tamanho;
         this.classificacao = classificacao;
+        this.contratoAlugelAtivo =  contratoAlugelAtivo;
     }
 
     public long getIdImovel() {
@@ -57,5 +59,13 @@ public class CadastroImovel {
 
     public void setClassificacao(String classificacao) {
         this.classificacao = classificacao;
+    }
+
+    public boolean isContratoAlugelAtivo() {
+        return contratoAlugelAtivo;
+    }
+
+    public void setContratoAlugelAtivo(boolean contratoAlugelAtivo) {
+        this.contratoAlugelAtivo = contratoAlugelAtivo;
     }
 }

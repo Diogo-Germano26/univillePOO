@@ -7,16 +7,16 @@ import java.time.LocalDateTime;
 public class ContratoAluguel {
     private long id_contrato;
     private BigDecimal valorAluguel;
-    private LocalDateTime dataInicio;
-    private LocalDateTime dataFim;
+    private LocalDate dataInicio;
+    private LocalDate dataFim;
     private boolean contrato_ativo;
     private CadastroCliente id_cliente;
     private CadastroImovel id_imovel;
 
     public ContratoAluguel(){}
 
-    public ContratoAluguel(long id_contrato, BigDecimal valorAluguel,
-                           LocalDateTime dataInicio, LocalDateTime dataFim,
+    public ContratoAluguel(final long id_contrato, BigDecimal valorAluguel,
+                           LocalDate dataInicio, LocalDate dataFim,
                            boolean contrato_ativo, CadastroCliente id_cliente,
                            CadastroImovel id_imovel) {
         this.id_contrato = id_contrato;
@@ -43,19 +43,19 @@ public class ContratoAluguel {
         this.id_contrato = id_contrato;
     }
 
-    public LocalDateTime getDataInicio() {
+    public LocalDate getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(LocalDateTime dataInicio) {
+    public void setDataInicio(LocalDate dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public LocalDateTime getDataFim() {
+    public LocalDate getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(LocalDateTime dataFim) {
+    public void setDataFim(LocalDate dataFim) {
         this.dataFim = dataFim;
     }
 
