@@ -11,16 +11,17 @@ public class ImovelDAO extends BaseDAO{
 
     public void cadastrarImovel(CadastroImovel imovel){
         String sql = """
-                insert into imovel(tipo_imovel,endereco,tamanho,classificacao)
-                values(?,?,?,?);
+                insert into imovel(tipo_imovel,endereco,tamanho,classificacao,contrato_aluguel_ativo)
+                values(?,?,?,?,?);
                 """;
         try(Connection conn = con();
-            PreparedStatement pds = con().prepareStatement(sql)){
+            PreparedStatement pds = conn.prepareStatement(sql)){
 
             pds.setString(1,imovel.getTipoImovel());
             pds.setString(2,imovel.getEndereco());
             pds.setDouble(3,imovel.getTamanho());
             pds.setString(4,imovel.getClassificacao());
+            pds.setBoolean(5,imovel.isContratoAlugelAtivo());
 
             pds.executeUpdate();
             System.out.println("Imóvel cadastrado com sucesso!");
@@ -28,37 +29,27 @@ public class ImovelDAO extends BaseDAO{
             e.printStackTrace();
         }
     }
-    public void imoveisDisponiveis(){
-        String sql = """
-                SELECT
-                    tipo_imovel AS nome,
-                    endereco,
-                    tamanho,
-                    classificacao
-                FROM
-                    imovel
-                WHERE
-                    contrato_ativo_aluguel = 0;
-                """;
-        try(Connection conn = con();
-            PreparedStatement pds = con().prepareStatement(sql);
-            ResultSet rs = pds.executeQuery()){
-                while(rs.next()) {
-                    String nome = rs.getString("nome");
-                    String endereco = rs.getString("endereco");
-                    double tamanho = rs.getDouble("tamanho");
-                    String classificacao = rs.getString("classificacao");
+    public boolean imovelExiste(String endereco) {
+        String sql = "SELECT COUNT(*) FROM imovel WHERE endereco = ?";
 
-                    System.out.println("Imóvel cadastrado com sucesso!");
-                    System.out.printf("Nome: %s | Endereço: %s | Tamanho: %.2f m² | Classificação: %s%n",
-                            nome, endereco, tamanho, classificacao);
-                }
-        }catch (SQLException e){
+        try (Connection conn = con();
+             PreparedStatement pds = conn.prepareStatement(sql)) {
+
+            pds.setString(1, endereco);
+            ResultSet rs = pds.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return false;
     }
-    public void listarImoveis() {
-        String sql = "SELECT id_imovel, tipo_imovel, endereco FROM imovel";
+    public void imoveisDisponiveis() {
+        String sql = "SELECT id_imovel, tipo_imovel, endereco FROM imovel WHERE contrato_aluguel_ativo = false";
         try (Connection conn = con();
              PreparedStatement pds = conn.prepareStatement(sql);
              ResultSet rs = pds.executeQuery()) {
@@ -75,4 +66,37 @@ public class ImovelDAO extends BaseDAO{
         }
     }
 
+    public CadastroImovel buscarImovelPorId(long id) {
+        String sql = "SELECT id_imovel, tipo_imovel, endereco, tamanho, classificacao, contrato_aluguel_ativo FROM imovel WHERE id_imovel = ?";
+        try (Connection conn = con();
+             PreparedStatement pds = conn.prepareStatement(sql)) {
+
+            pds.setLong(1, id);
+            ResultSet rs = pds.executeQuery();
+            if (rs.next()) {
+                CadastroImovel imovel = new CadastroImovel();
+                imovel.setIdImovel(rs.getLong("id_imovel"));
+                imovel.setTipoImovel(rs.getString("tipo_imovel"));
+                imovel.setEndereco(rs.getString("endereco"));
+                imovel.setTamanho(rs.getDouble("tamanho"));
+                imovel.setClassificacao(rs.getString("classificacao"));
+                imovel.setContratoAlugelAtivo(rs.getBoolean("contrato_aluguel_ativo"));
+                return imovel;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public void imovelAlugado(long idImovel) {
+        String sql = "UPDATE imovel SET contrato_aluguel_ativo = true WHERE id_imovel = ?";
+        try (Connection conn = con();
+             PreparedStatement pds = conn.prepareStatement(sql)) {
+
+            pds.setLong(1, idImovel);
+            pds.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

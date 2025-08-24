@@ -2,7 +2,6 @@ package univille.gestaoImobiliaria.ImobiliariaDL;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class ContratoAluguel {
     private long id_contrato;
@@ -10,21 +9,19 @@ public class ContratoAluguel {
     private LocalDate dataInicio;
     private LocalDate dataFim;
     private boolean contrato_ativo;
+    private CadastroCliente cpf;
     private CadastroCliente id_cliente;
     private CadastroImovel id_imovel;
 
-    public ContratoAluguel(){}
-
-    public ContratoAluguel(final long id_contrato, BigDecimal valorAluguel,
+    public ContratoAluguel(BigDecimal valorAluguel,
                            LocalDate dataInicio, LocalDate dataFim,
                            boolean contrato_ativo, CadastroCliente id_cliente,
                            CadastroImovel id_imovel) {
-        this.id_contrato = id_contrato;
         this.valorAluguel = valorAluguel;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
-        this.contrato_ativo = true;
-        this.id_cliente = id_cliente;
+        this.contrato_ativo = contrato_ativo;
+        this.id_cliente= id_cliente;
         this.id_imovel = id_imovel;
     }
     public BigDecimal getValorAluguel() {
@@ -37,10 +34,6 @@ public class ContratoAluguel {
 
     public long getId_contrato() {
         return id_contrato;
-    }
-
-    public void setId_contrato(long id_contrato) {
-        this.id_contrato = id_contrato;
     }
 
     public LocalDate getDataInicio() {
@@ -73,6 +66,14 @@ public class ContratoAluguel {
 
     public void setId_cliente(CadastroCliente id_cliente) {
         this.id_cliente = id_cliente;
+    }
+
+    public CadastroCliente getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(CadastroCliente cpf) {
+        this.cpf = cpf;
     }
 
     public CadastroImovel getId_imovel() {

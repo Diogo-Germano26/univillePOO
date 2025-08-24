@@ -1,16 +1,15 @@
-    package univille.gestaoImobiliaria.ImobiliariaDL;
+package univille.gestaoImobiliaria.ImobiliariaDL;
 
 public class CadastroCliente {
     private long idCliente;
     private String nome;
     private String email;
-    private int CPF;
+    private String CPF;
 
     public CadastroCliente() {
     }
 
-    public CadastroCliente(long idCliente, String nome, String email, int CPF) {
-        this.idCliente = idCliente;
+    public CadastroCliente(String nome, String email, String CPF) {
         this.nome = nome;
         this.email = email;
         this.CPF = CPF;
@@ -18,10 +17,6 @@ public class CadastroCliente {
 
     public long getIdCliente() {
         return idCliente;
-    }
-
-    public void setIdCliente(long idCliente) {
-        this.idCliente = idCliente;
     }
 
     public String getNome() {
@@ -40,11 +35,15 @@ public class CadastroCliente {
         this.email = email;
     }
 
-    public int getCPF() {
+    public String getCPF() {
         return CPF;
     }
 
-    public void setCPF(int CPF) {
+    public void setCPF(String CPF) {
         this.CPF = CPF;
+    }
+
+    public void setIdCliente(long idCliente) {
+        this.idCliente = idCliente;
     }
 }
