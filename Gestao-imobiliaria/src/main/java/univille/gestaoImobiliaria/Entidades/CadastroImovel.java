@@ -1,17 +1,20 @@
-package univille.gestaoImobiliaria.ImobiliariaDL;
+package univille.gestaoImobiliaria.Entidades;
 
 public class CadastroImovel {
+    // Identificador único do imóvel
     private long idImovel;
     private String tipoImovel;
     private String endereco;
     private double tamanho;
     private String classificacao;
+    // Indica se o imóvel possui contrato de aluguel ativo
     private boolean contratoAlugelAtivo;
 
 
     public CadastroImovel() {
     }
 
+    // Construtor completo para inicialização direta
     public CadastroImovel(String tipoImovel, String endereco, double tamanho, String classificacao, boolean contratoAlugelAtivo) {
         this.tipoImovel = tipoImovel;
         this.endereco = endereco;

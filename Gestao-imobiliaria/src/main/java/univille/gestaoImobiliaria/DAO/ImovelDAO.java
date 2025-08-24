@@ -1,6 +1,6 @@
 package univille.gestaoImobiliaria.DAO;
 
-import univille.gestaoImobiliaria.ImobiliariaDL.CadastroImovel;
+import univille.gestaoImobiliaria.Entidades.CadastroImovel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 public class ImovelDAO extends BaseDAO{
 
+    // Insere um novo imóvel no banco de dados
     public void cadastrarImovel(CadastroImovel imovel){
         String sql = """
                 insert into imovel(tipo_imovel,endereco,tamanho,classificacao,contrato_aluguel_ativo)
@@ -29,6 +30,7 @@ public class ImovelDAO extends BaseDAO{
             e.printStackTrace();
         }
     }
+    // Verifica se já existe um imóvel cadastrado com determinado endereço
     public boolean imovelExiste(String endereco) {
         String sql = "SELECT COUNT(*) FROM imovel WHERE endereco = ?";
 
@@ -39,7 +41,7 @@ public class ImovelDAO extends BaseDAO{
             ResultSet rs = pds.executeQuery();
 
             if (rs.next()) {
-                return rs.getInt(1) > 0;
+                return rs.getInt(1) > 0; // Retorna true se houver pelo menos um registro
             }
 
         } catch (SQLException e) {
@@ -48,6 +50,7 @@ public class ImovelDAO extends BaseDAO{
 
         return false;
     }
+    // Lista todos os imóveis que não estão alugados
     public void imoveisDisponiveis() {
         String sql = "SELECT id_imovel, tipo_imovel, endereco FROM imovel WHERE contrato_aluguel_ativo = false";
         try (Connection conn = con();
@@ -66,6 +69,7 @@ public class ImovelDAO extends BaseDAO{
         }
     }
 
+    // Retorna os dados de um imóvel específico pelo ID
     public CadastroImovel buscarImovelPorId(long id) {
         String sql = "SELECT id_imovel, tipo_imovel, endereco, tamanho, classificacao, contrato_aluguel_ativo FROM imovel WHERE id_imovel = ?";
         try (Connection conn = con();
@@ -88,6 +92,7 @@ public class ImovelDAO extends BaseDAO{
         }
         return null;
     }
+    // Marca o imóvel como alugado atualizando o status no banco
     public void imovelAlugado(long idImovel) {
         String sql = "UPDATE imovel SET contrato_aluguel_ativo = true WHERE id_imovel = ?";
         try (Connection conn = con();

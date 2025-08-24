@@ -1,13 +1,12 @@
 package univille.gestaoImobiliaria.DAO;
 
-import univille.gestaoImobiliaria.ImobiliariaDL.ContratoAluguel;
+import univille.gestaoImobiliaria.Entidades.ContratoAluguel;
 
 import java.math.BigDecimal;
 import java.sql.*;
-import java.time.LocalDate;
 
 public class ContratoDAO extends BaseDAO {
-    // Método corrigido: removido o parâmetro não utilizado e corrigida a sintaxe SQL
+    // Exibe os clientes que possuem mais contratos ativos cadastrados
     public void getClienteComMaisContratos(){
         String sql = """
                 SELECT c.id_cliente, c.nome, COUNT(*) AS quantidade_contratos
@@ -31,6 +30,7 @@ public class ContratoDAO extends BaseDAO {
         }
 
     }
+    // Insere um novo contrato de aluguel no banco
     public void cadastrarContrato(ContratoAluguel contrato){
         String sql = """
                 INSERT INTO contrato_aluguel (valor_aluguel, data_inicio, data_fim, contrato_ativo, id_imovel, id_cliente)
@@ -52,6 +52,7 @@ public class ContratoDAO extends BaseDAO {
             e.printStackTrace();
         }
     }
+    // Lista todos os contratos ativos com informações detalhadas de cliente e imóvel
     public void contratosAtivos(){
         String sql = """
         SELECT ca.id_contrato, ca.valor_aluguel, ca.data_fim,
@@ -84,6 +85,7 @@ public class ContratoDAO extends BaseDAO {
             e.printStackTrace();
         }
     }
+    // Lista contratos ativos que estão prestes a expirar nos próximos 30 dias
     public void contratosExpirandoEm30Dias(){
         String sql = """
         SELECT ca.id_contrato, ca.valor_aluguel, ca.data_fim,

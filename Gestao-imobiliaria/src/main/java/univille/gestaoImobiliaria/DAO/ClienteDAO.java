@@ -1,6 +1,6 @@
 package univille.gestaoImobiliaria.DAO;
 
-import univille.gestaoImobiliaria.ImobiliariaDL.CadastroCliente;
+import univille.gestaoImobiliaria.Entidades.CadastroCliente;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 public class ClienteDAO extends BaseDAO{
 
+    // Verifica se já existe um cliente cadastrado com o CPF informado
     public boolean cpfExiste(String cpf) {
         String sql = "SELECT COUNT(*) FROM cliente WHERE CPF = ?";
 
@@ -18,6 +19,7 @@ public class ClienteDAO extends BaseDAO{
             pds.setString(1, cpf);
             ResultSet rs = pds.executeQuery();
 
+            // Retorna true se o CPF já estiver cadastrado
             if (rs.next()) {
                 return rs.getInt(1) > 0;
             }
@@ -28,6 +30,7 @@ public class ClienteDAO extends BaseDAO{
 
         return false;
     }
+    // Busca e retorna um cliente pelo CPF
     public CadastroCliente buscarCpf(String cpf) {
         String sql = "SELECT id_cliente, nome, email, CPF FROM cliente WHERE CPF = ?";
 
@@ -37,6 +40,7 @@ public class ClienteDAO extends BaseDAO{
             pds.setString(1, cpf);
             ResultSet rs = pds.executeQuery();
 
+            // Cria e popula o objeto cliente se encontrado
             if (rs.next()) {
                 CadastroCliente cliente = new CadastroCliente();
                 cliente.setIdCliente(rs.getLong("id_cliente"));
@@ -50,9 +54,11 @@ public class ClienteDAO extends BaseDAO{
             e.printStackTrace();
         }
 
+        // Retorna null se nenhum cliente for encontrado
         return null;
     }
-    // Novo metodo adicionado
+
+    // Busca e retorna um cliente pelo ID
     public CadastroCliente buscarClientePorId(long id) {
         String sql = "SELECT id_cliente, nome, email, CPF FROM cliente WHERE id_cliente = ?";
         try (Connection conn = con();
@@ -61,6 +67,7 @@ public class ClienteDAO extends BaseDAO{
             pds.setLong(1, id);
             ResultSet rs = pds.executeQuery();
 
+            // Cria e popula o objeto cliente se encontrado
             if (rs.next()) {
                 CadastroCliente cliente = new CadastroCliente();
                 cliente.setIdCliente(rs.getLong("id_cliente"));
@@ -75,7 +82,9 @@ public class ClienteDAO extends BaseDAO{
         }
         return null;
     }
+    // Cadastra um novo cliente no banco de dados
     public void cadastrarCliente(CadastroCliente cliente){
+        // Verifica se o CPF já existe antes de cadastrar
         if (cpfExiste(cliente.getCPF())) {
             System.out.println("⚠️ Já existe um cliente cadastrado com este CPF.");
             return;
@@ -100,6 +109,7 @@ public class ClienteDAO extends BaseDAO{
 
         }
     }
+    // Lista todos os clientes cadastrados
     public void listarClientes() {
         String sql = "SELECT id_cliente, nome, email FROM cliente";
         try (Connection conn = con();

@@ -1,18 +1,26 @@
-package univille.gestaoImobiliaria.ImobiliariaDL;
+package univille.gestaoImobiliaria.Entidades;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class ContratoAluguel {
+    // Identificador único do contrato no banco
     private long id_contrato;
+    // Valor do aluguel contratado
     private BigDecimal valorAluguel;
+    // Datas de início e fim do contrato
     private LocalDate dataInicio;
     private LocalDate dataFim;
+    // Indica se o contrato está ativo
     private boolean contrato_ativo;
+    // Cliente representado pelo CPF
     private CadastroCliente cpf;
+    // Cliente vinculado ao contrato
     private CadastroCliente id_cliente;
+    // Imóvel vinculado ao contrato
     private CadastroImovel id_imovel;
 
+    // Construtor principal
     public ContratoAluguel(BigDecimal valorAluguel,
                            LocalDate dataInicio, LocalDate dataFim,
                            boolean contrato_ativo, CadastroCliente id_cliente,
